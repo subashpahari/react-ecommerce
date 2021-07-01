@@ -5,30 +5,30 @@ import { auth } from "../../firebase/firebase.utils";
 import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 
-const Header = ({ currentUser }) => {
-  return (
-    <div className="header">
-      <Link className="logo-container" to="/">
-        <Logo className="logo"></Logo>
+const Header = ({ currentUser }) => (
+  <div className="header">
+    <Link className="logo-container" to="/">
+      <Logo className="logo" />
+    </Link>
+    <div className="options">
+      <Link className="option" to="/shop">
+        SHOP
       </Link>
-      <div className="options">
-        <Link className="option" to="/shop">
-          SHOP
+      <Link className="option" to="/shop">
+        CONTACT
+      </Link>
+      {currentUser ? (
+        // eslint-disable-next-line
+        <a className="option" onClick={() => auth.signOut()}>
+          SIGN OUT
+        </a>
+      ) : (
+        <Link className="option" to="/signin">
+          SIGN IN
         </Link>
-        <Link className="contacts" to="/contacts">
-          CONTACTS
-        </Link>
-        {currentUser ? (
-          <div className="option" onClick={() => auth.signOut()}>
-            Sign Out
-          </div>
-        ) : (
-          <Link to="/signin" className="option">
-            Sign In
-          </Link>
-        )}
-      </div>
+      )}
     </div>
-  );
-};
+  </div>
+);
+
 export default Header;
